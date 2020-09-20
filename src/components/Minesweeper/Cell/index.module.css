@@ -1,0 +1,15 @@
+.general{
+    width:18px;
+    height:18px;
+    border-radius:6px;
+    margin:2px;
+    cursor:pointer;
+}
+
+.covered{
+    background-color:grey;
+}
+
+.uncovered{
+    background-color: white;
+}
