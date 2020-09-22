@@ -1,86 +1,146 @@
 import styles from './index.module.css'
 import Cell from './Cell'
-import { onMounted, provide, ref, reactive, inject } from 'vue'
+import { onMounted, provide, ref, reactive, inject, onUpdated } from 'vue'
 import withCatched from '../../hocs/withCatched'
+import { useReducer } from 'vue-use-reducer'
+import { iState, reducer } from './reducer'
+import * as appActions from '../App/actions'
+import * as cellActions from './Cell/actions'
 
 export default withCatched({
-    props:['catched','infoRef'],
-    setup(props){
-        const dim=30
-        const state=reactive({})
+  props: ['catched', 'infoRef', 'catchedApp', 'class'],
+  setup(props) {
+    const [state, dispatch] = useReducer(reducer, iState)
 
-        const cells=[]
-        for(let i=0;i<dim;i++){ 
-            cells[i]=new Array(dim)
-            for(let j=0;j<dim;j++){
-                cells[i][j]=
-                <Cell 
-                catched={props.catched[i][j]}
-                i={i}
-                j={j}
-                />
-            }
-        }  
+    onMounted(() => {
+      props.catchedApp.bind(null, { state, dispatch, infoRef: props.infoRef })()
+    })
 
-        provide('store',{state,infoRef:props.infoRef})
-        const store=ref(null)
-        onMounted(()=>{
-            store.value=inject('store')
-        })
+    onUpdated(() => {
+      props.catchedApp.bind(null, { state, dispatch, infoRef: props.infoRef })()
+    })
 
-        onMounted(()=>{
-            for(let i=0;i<dim;i++){
-                for(let j=0;j<dim;j++){
-                    let minesAround=0
-                    if(store.value.infoRef[i-1]&&
-                        store.value.infoRef[i-1][j-1]&&
-                        store.value.infoRef[i-1][j-1].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i-1]&&
-                        store.value.infoRef[i-1][j]&&
-                        store.value.infoRef[i-1][j].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i-1]&&
-                        store.value.infoRef[i-1][j+1]&&
-                        store.value.infoRef[i-1][j+1].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i]&&
-                        store.value.infoRef[i][j-1]&&
-                        store.value.infoRef[i][j-1].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i]&&
-                        store.value.infoRef[i][j+1]&&
-                        store.value.infoRef[i][j+1].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i+1]&&
-                        store.value.infoRef[i+1][j-1]&&
-                        store.value.infoRef[i+1][j-1].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i+1]&&
-                        store.value.infoRef[i+1][j]&&
-                        store.value.infoRef[i+1][j].value.state.mined){
-                        minesAround++
-                    }
-                    if(store.value.infoRef[i+1]&&
-                        store.value.infoRef[i+1][j+1]&&
-                        store.value.infoRef[i+1][j+1].value.state.mined){
-                        minesAround++
-                    }
-                    store.value.infoRef[i][j].value.state.minesAround=minesAround
-                }
-            }
-        })
+    const store = ref(null)
+    store.value = inject('store')
 
-        return ()=>{
-            return (
-                cells.map(row=><div class={styles.row}>{row}</div>)
-            )
+    const calculateMinesAround = () => {
+      for (let i = 0; i < store.value.state.dim; i++) {
+        for (let j = 0; j < store.value.state.dim; j++) {
+          let minesAround = 0
+          if (
+            store.value.minesweeper.infoRef[i - 1] &&
+            store.value.minesweeper.infoRef[i - 1][j - 1] &&
+            store.value.minesweeper.infoRef[i - 1][j - 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i - 1] &&
+            store.value.minesweeper.infoRef[i - 1][j] &&
+            store.value.minesweeper.infoRef[i - 1][j].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i - 1] &&
+            store.value.minesweeper.infoRef[i - 1][j + 1] &&
+            store.value.minesweeper.infoRef[i - 1][j + 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i] &&
+            store.value.minesweeper.infoRef[i][j - 1] &&
+            store.value.minesweeper.infoRef[i][j - 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i] &&
+            store.value.minesweeper.infoRef[i][j + 1] &&
+            store.value.minesweeper.infoRef[i][j + 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i + 1] &&
+            store.value.minesweeper.infoRef[i + 1][j - 1] &&
+            store.value.minesweeper.infoRef[i + 1][j - 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i + 1] &&
+            store.value.minesweeper.infoRef[i + 1][j] &&
+            store.value.minesweeper.infoRef[i + 1][j].value.state.mined
+          ) {
+            minesAround++
+          }
+          if (
+            store.value.minesweeper.infoRef[i + 1] &&
+            store.value.minesweeper.infoRef[i + 1][j + 1] &&
+            store.value.minesweeper.infoRef[i + 1][j + 1].value.state.mined
+          ) {
+            minesAround++
+          }
+          store.value.minesweeper.infoRef[i][
+            j
+          ].value.state.minesAround = minesAround
         }
+      }
     }
+
+    onUpdated(calculateMinesAround)
+    onMounted(calculateMinesAround)
+
+    const setDimension = () => {
+      store.value.dispatch(appActions.setDimension(dimensionRef.value.value))
+      store.value.dispatch(appActions.increaseMatchCounter())
+    }
+
+    const dimensionRef = ref(null)
+
+    return () => {
+      const cells = []
+      for (let i = 0; i < store.value.state.dim; i++) {
+        cells[i] = new Array(store.value.state.dim)
+        for (let j = 0; j < store.value.state.dim; j++) {
+          cells[i][j] = (
+            <Cell
+              key={i + '_' + j + '_' + store.value.state.matchCounter}
+              catched={props.catched[i][j]}
+              i={i}
+              j={j}
+            />
+          )
+        }
+      }
+
+      return (
+        <div class={props.class}>
+          <div class={styles.content}>
+            <div class={styles.wrap}>
+              {cells.map((row) => (
+                <div class={styles.row}>{row}</div>
+              ))}
+            </div>
+            <div class={styles.row2}>
+              <button
+                class={styles.btn + ' btn btn-primary'}
+                onClick={setDimension}
+              >
+                set dimension
+              </button>
+              <input
+                type='number'
+                class='form-control'
+                value={store.value.state.dim}
+                ref={dimensionRef}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    }
+  },
 })

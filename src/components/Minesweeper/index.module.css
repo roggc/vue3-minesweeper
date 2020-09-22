@@ -1,5 +1,26 @@
-.row{
-    /* border:1px solid red; */
-    display:flex;
-    width:fit-content;
+.row {
+  /* border:1px solid red; */
+  display: flex;
+  width: fit-content;
+}
+
+.wrap {
+  float: left;
+  border: 1px solid brown;
+  margin: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.row2 {
+  display: flex;
+  margin: 10px;
+}
+
+.btn {
+  white-space: nowrap;
+  margin-right: 10px;
 }
