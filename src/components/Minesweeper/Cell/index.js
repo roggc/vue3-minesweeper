@@ -3,6 +3,7 @@ import styles from './index.module.css'
 import { useReducer } from '../../../hooks/useReducer'
 import { iState, reducer } from './reducer'
 import * as cellActions from './actions'
+import * as appActions from '../../App/actions'
 
 export default {
   props: ['catched', 'i', 'j'],
@@ -112,8 +113,19 @@ export default {
     store.value = inject('store')
 
     const uncoverCell = () => {
+      // console.log(store.value.state.endOfGame)
+      if (store.value.state.endOfGame) {
+        return
+      }
       dispatch(cellActions.uncoverCell())
     }
+
+    onUpdated(() => {
+      if (state.mined && !state.covered) {
+        //end of game
+        store.value.dispatch(appActions.setEndOfGame())
+      }
+    })
 
     return () => {
       return (

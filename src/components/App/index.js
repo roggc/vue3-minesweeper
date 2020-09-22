@@ -20,9 +20,7 @@ export default {
 
     return () => {
       return (
-        <div
-          class={styles.general + ' col-md-8 offset-md-2 col-lg-6 offset-lg-3'}
-        >
+        <div class={styles.general}>
           <Minesweeper catchedApp={catched} class={styles.colouredBorder} />
         </div>
       )

@@ -129,14 +129,18 @@ export default withCatched({
                 class={styles.btn + ' btn btn-primary'}
                 onClick={setDimension}
               >
-                set dimension
+                reset
               </button>
-              <input
-                type='number'
-                class='form-control'
-                value={store.value.state.dim}
-                ref={dimensionRef}
-              />
+              <div>
+                <label for='dimension'>dimension</label>
+                <input
+                  id='dimension'
+                  type='number'
+                  class='form-control'
+                  value={store.value.state.dim}
+                  ref={dimensionRef}
+                />
+              </div>
             </div>
           </div>
         </div>
