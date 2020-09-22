@@ -20,70 +20,73 @@ export default withCatched({
       props.catchedApp.bind(null, { state, dispatch, infoRef: props.infoRef })()
     })
 
-    const store = ref(null)
-    store.value = inject('store')
+    // const store = ref(null)
+    // store.value = inject('store')
+    const store = inject('store')
+    // console.log(store)
 
     const calculateMinesAround = () => {
-      for (let i = 0; i < store.value.state.dim; i++) {
-        for (let j = 0; j < store.value.state.dim; j++) {
+      const dim = store.state.dim
+      for (let i = 0; i < dim; i++) {
+        for (let j = 0; j < dim; j++) {
           let minesAround = 0
           if (
-            store.value.minesweeper.infoRef[i - 1] &&
-            store.value.minesweeper.infoRef[i - 1][j - 1] &&
-            store.value.minesweeper.infoRef[i - 1][j - 1].value.state.mined
+            store.minesweeper.value.infoRef[i - 1] &&
+            store.minesweeper.value.infoRef[i - 1][j - 1] &&
+            store.minesweeper.value.infoRef[i - 1][j - 1].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i - 1] &&
-            store.value.minesweeper.infoRef[i - 1][j] &&
-            store.value.minesweeper.infoRef[i - 1][j].value.state.mined
+            store.minesweeper.value.infoRef[i - 1] &&
+            store.minesweeper.value.infoRef[i - 1][j] &&
+            store.minesweeper.value.infoRef[i - 1][j].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i - 1] &&
-            store.value.minesweeper.infoRef[i - 1][j + 1] &&
-            store.value.minesweeper.infoRef[i - 1][j + 1].value.state.mined
+            store.minesweeper.value.infoRef[i - 1] &&
+            store.minesweeper.value.infoRef[i - 1][j + 1] &&
+            store.minesweeper.value.infoRef[i - 1][j + 1].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i] &&
-            store.value.minesweeper.infoRef[i][j - 1] &&
-            store.value.minesweeper.infoRef[i][j - 1].value.state.mined
+            store.minesweeper.value.infoRef[i] &&
+            store.minesweeper.value.infoRef[i][j - 1] &&
+            store.minesweeper.value.infoRef[i][j - 1].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i] &&
-            store.value.minesweeper.infoRef[i][j + 1] &&
-            store.value.minesweeper.infoRef[i][j + 1].value.state.mined
+            store.minesweeper.value.infoRef[i] &&
+            store.minesweeper.value.infoRef[i][j + 1] &&
+            store.minesweeper.value.infoRef[i][j + 1].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i + 1] &&
-            store.value.minesweeper.infoRef[i + 1][j - 1] &&
-            store.value.minesweeper.infoRef[i + 1][j - 1].value.state.mined
+            store.minesweeper.value.infoRef[i + 1] &&
+            store.minesweeper.value.infoRef[i + 1][j - 1] &&
+            store.minesweeper.value.infoRef[i + 1][j - 1].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i + 1] &&
-            store.value.minesweeper.infoRef[i + 1][j] &&
-            store.value.minesweeper.infoRef[i + 1][j].value.state.mined
+            store.minesweeper.value.infoRef[i + 1] &&
+            store.minesweeper.value.infoRef[i + 1][j] &&
+            store.minesweeper.value.infoRef[i + 1][j].value.state.mined
           ) {
             minesAround++
           }
           if (
-            store.value.minesweeper.infoRef[i + 1] &&
-            store.value.minesweeper.infoRef[i + 1][j + 1] &&
-            store.value.minesweeper.infoRef[i + 1][j + 1].value.state.mined
+            store.minesweeper.value.infoRef[i + 1] &&
+            store.minesweeper.value.infoRef[i + 1][j + 1] &&
+            store.minesweeper.value.infoRef[i + 1][j + 1].value.state.mined
           ) {
             minesAround++
           }
-          store.value.minesweeper.infoRef[i][
+          store.minesweeper.value.infoRef[i][
             j
           ].value.state.minesAround = minesAround
         }
@@ -94,20 +97,21 @@ export default withCatched({
     onMounted(calculateMinesAround)
 
     const setDimension = () => {
-      store.value.dispatch(appActions.setDimension(dimensionRef.value.value))
-      store.value.dispatch(appActions.increaseMatchCounter())
+      store.dispatch(appActions.setDimension(dimensionRef.value.value))
+      store.dispatch(appActions.increaseMatchCounter())
     }
 
     const dimensionRef = ref(null)
 
     return () => {
+      const dim = store.state.dim
       const cells = []
-      for (let i = 0; i < store.value.state.dim; i++) {
-        cells[i] = new Array(store.value.state.dim)
-        for (let j = 0; j < store.value.state.dim; j++) {
+      for (let i = 0; i < dim; i++) {
+        cells[i] = new Array(dim)
+        for (let j = 0; j < dim; j++) {
           cells[i][j] = (
             <Cell
-              key={i + '_' + j + '_' + store.value.state.matchCounter}
+              key={i + '_' + j + '_' + store.state.matchCounter}
               catched={props.catched[i][j]}
               i={i}
               j={j}
@@ -137,7 +141,7 @@ export default withCatched({
                   id='dimension'
                   type='number'
                   class='form-control'
-                  value={store.value.state.dim}
+                  value={dim}
                   ref={dimensionRef}
                 />
               </div>

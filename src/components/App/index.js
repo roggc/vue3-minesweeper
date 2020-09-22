@@ -14,9 +14,7 @@ export default {
     onMounted(() => {})
 
     provide('store', { state, dispatch, minesweeper: infoRef })
-
-    const store = ref(null)
-    store.value = inject('store')
+    const store = inject('store')
 
     return () => {
       return (

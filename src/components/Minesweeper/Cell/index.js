@@ -12,81 +12,81 @@ export default {
 
     onUpdated(() => {
       if (
-        store.value.minesweeper.infoRef[props.i][props.j].value.state
+        store.minesweeper.value.infoRef[props.i][props.j].value.state
           .minesAround > 0 ||
-        store.value.minesweeper.infoRef[props.i][props.j].value.state.covered
+        store.minesweeper.value.infoRef[props.i][props.j].value.state.covered
       ) {
         return
       }
       if (
-        store.value.minesweeper.infoRef[props.i - 1] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j - 1] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j - 1].value.state
+        store.minesweeper.value.infoRef[props.i - 1] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j - 1] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j - 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i - 1][
+        store.minesweeper.value.infoRef[props.i - 1][
           props.j - 1
         ].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i - 1] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j].value.state
+        store.minesweeper.value.infoRef[props.i - 1] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i - 1][props.j].value.ref.click()
+        store.minesweeper.value.infoRef[props.i - 1][props.j].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i - 1] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j + 1] &&
-        store.value.minesweeper.infoRef[props.i - 1][props.j + 1].value.state
+        store.minesweeper.value.infoRef[props.i - 1] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j + 1] &&
+        store.minesweeper.value.infoRef[props.i - 1][props.j + 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i - 1][
+        store.minesweeper.value.infoRef[props.i - 1][
           props.j + 1
         ].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i] &&
-        store.value.minesweeper.infoRef[props.i][props.j - 1] &&
-        store.value.minesweeper.infoRef[props.i][props.j - 1].value.state
+        store.minesweeper.value.infoRef[props.i] &&
+        store.minesweeper.value.infoRef[props.i][props.j - 1] &&
+        store.minesweeper.value.infoRef[props.i][props.j - 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i][props.j - 1].value.ref.click()
+        store.minesweeper.value.infoRef[props.i][props.j - 1].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i] &&
-        store.value.minesweeper.infoRef[props.i][props.j + 1] &&
-        store.value.minesweeper.infoRef[props.i][props.j + 1].value.state
+        store.minesweeper.value.infoRef[props.i] &&
+        store.minesweeper.value.infoRef[props.i][props.j + 1] &&
+        store.minesweeper.value.infoRef[props.i][props.j + 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i][props.j + 1].value.ref.click()
+        store.minesweeper.value.infoRef[props.i][props.j + 1].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i + 1] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j - 1] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j - 1].value.state
+        store.minesweeper.value.infoRef[props.i + 1] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j - 1] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j - 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i + 1][
+        store.minesweeper.value.infoRef[props.i + 1][
           props.j - 1
         ].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i + 1] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j].value.state
+        store.minesweeper.value.infoRef[props.i + 1] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i + 1][props.j].value.ref.click()
+        store.minesweeper.value.infoRef[props.i + 1][props.j].value.ref.click()
       }
       if (
-        store.value.minesweeper.infoRef[props.i + 1] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j + 1] &&
-        store.value.minesweeper.infoRef[props.i + 1][props.j + 1].value.state
+        store.minesweeper.value.infoRef[props.i + 1] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j + 1] &&
+        store.minesweeper.value.infoRef[props.i + 1][props.j + 1].value.state
           .covered
       ) {
-        store.value.minesweeper.infoRef[props.i + 1][
+        store.minesweeper.value.infoRef[props.i + 1][
           props.j + 1
         ].value.ref.click()
       }
@@ -109,11 +109,10 @@ export default {
       })()
     })
 
-    const store = ref(null)
-    store.value = inject('store')
+    const store = inject('store')
 
     const uncoverCell = () => {
-      if (store.value.state.endOfGame) {
+      if (store.state.endOfGame) {
         return
       }
       dispatch(cellActions.uncoverCell())
@@ -122,7 +121,7 @@ export default {
     onUpdated(() => {
       if (state.mined && !state.covered) {
         //end of game
-        store.value.dispatch(appActions.setEndOfGame())
+        store.dispatch(appActions.setEndOfGame())
       }
     })
 
