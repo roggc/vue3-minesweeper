@@ -113,7 +113,6 @@ export default {
     store.value = inject('store')
 
     const uncoverCell = () => {
-      // console.log(store.value.state.endOfGame)
       if (store.value.state.endOfGame) {
         return
       }
